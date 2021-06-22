@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.s006 {    
+  min-height: 100vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: poppins,sans-serif;
+  background: url("./images/19.jpg");
+  background-size: cover;
+  background-position: center center;
+  padding: 15px;
+}
