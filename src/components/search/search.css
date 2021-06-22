@@ -164,6 +164,12 @@ legend {
     margin: 30px;
 }
 
+.name_search_sub {
+    font-size: 15px;
+    margin: 1px;
+    padding: 5px 10px;
+}
+
 .sub_title {
     font-size: 20px;
     background: #0000;

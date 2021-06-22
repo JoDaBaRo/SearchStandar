@@ -10,6 +10,8 @@ export default class InputSearch extends Component {
         allItems: [],
         classroomsView: [],
         nameSelected: 'Prueba',
+        nameBuildingSelected: '',
+        floorSelected: '',
         comentsSelected: 'Esto es un comentario',
         coorSelected: '17, 26',
     }
@@ -25,7 +27,8 @@ export default class InputSearch extends Component {
                 name: '',
                 nameBuilding: '',
                 comments: '',
-                coors: ''
+                coors: '',
+                floor: ''
             }
             obj.name = element.building.name
             obj.id = element.building.id
@@ -35,14 +38,16 @@ export default class InputSearch extends Component {
             list.push(obj);
         });
         data.forEach(building => {
-            building.building.floors.forEach(element => {
-                element.classrooms.forEach(element => {
+            building.building.floors.forEach(floors => {
+                floors.classrooms.forEach(element => {
                     var obj = {
                         id: '',
                         type: '',
                         name: '',
                         nameBuilding: '',
-                        coors: ''
+                        comments: '',
+                        coors: '',
+                        floor: ''
                     }
                     obj.name = element.name
                     obj.id = element.id
@@ -50,6 +55,7 @@ export default class InputSearch extends Component {
                     obj.nameBuilding = building.building.name
                     obj.comments = element.comments
                     obj.coors = building.building.x_position+', '+building.building.y_position
+                    obj.floor = floors.number;
                     list.push(obj);
                 });
             });
@@ -59,7 +65,6 @@ export default class InputSearch extends Component {
             allItems: list,
             classroomsView: list
         })
-        console.log(this.state.classrooms);
     }
 
     onSearch = (e) => {
@@ -69,11 +74,12 @@ export default class InputSearch extends Component {
 
     propSearch = () => {
         if(this.state.classroomsView.length > 0){
-            console.log(this.state.classroomsView[0])
             this.setState({
                 nameSelected: this.state.classroomsView[0].name,
                 comentsSelected: this.state.classroomsView[0].comments,
-                coorSelected: this.state.classroomsView[0].coors
+                coorSelected: this.state.classroomsView[0].coors,
+                nameBuildingSelected: this.state.classroomsView[0].nameBuilding,
+                floorSelected: this.state.classroomsView[0].floor
             });
             gsap.to('#tagSearch', {
                 duration: 0,
@@ -190,8 +196,26 @@ export default class InputSearch extends Component {
             </form>
             <div className="cartInfo" id="cartInfo">
                 <div id="infoclass" className="col-12">
-                    <div className="col-12 row">
-                        <div className="col-12 d-flex justify-content-center"><span className="name_search">{this.state.nameSelected}</span></div>
+                    <div className="col-12 row d-flex align-items-center">
+                        <div className="col-3">
+                            {
+                                this.state.floorSelected != '' ?
+                                    <div className="name_search name_search_sub"><span>{this.state.nameBuildingSelected}</span></div>
+                                :
+                                    <div></div>
+                            }
+                        </div>
+                        <div className="col-6">
+                            <div className="d-flex justify-content-center"><span className="name_search">{this.state.nameSelected}</span></div>
+                        </div>
+                        <div className="col-3 d-flex justify-content-end">
+                            {
+                                this.state.floorSelected != '' ?
+                                    <div className="name_search name_search_sub"><span>Piso: {this.state.floorSelected}</span></div>
+                                :
+                                    <div></div>
+                            }
+                        </div>
                     </div>
                     <div className="col-12 row tab_info">
                         <div className="col-4">
